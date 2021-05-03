@@ -13,7 +13,8 @@
       el: '#app',
       data () {
         return {
-          userName: '老夫子'
+          userName: '老夫子',
+          arr: []
         }
       },
       computed: {},
@@ -22,6 +23,8 @@
     })
 
     vm._data.userName = '解放军技术'
+    vm._data.arr.push({name: 'skiff'})
+    console.log(vm._data)
   </script>
 </body>
 </html>
