@@ -18,17 +18,19 @@ export function initMixin (Vue) {
   }
 
   Vue.prototype.$mount = function (el) {
-    console.log(el);
+    // render方法 -> template -> el中的内容
     const vm = this
     const options = this.$options
     el = document.querySelector(el)
     if (!options.render) {
+      // 对模板进行编译
       let template = options.template
       if (!template && el) {
         template = el.outerHTML
       }
-
-      
+      // 将template转换为render方法
+      const render = compileToFunction(template)
+      options.render = render
     }
   }
 }

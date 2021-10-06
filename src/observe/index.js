@@ -1,8 +1,13 @@
-import { isObject, def } from '../util/index'
-import { arrayMethods } from './array'
+import {
+  isObject,
+  def
+} from '../util/index'
+import {
+  arrayMethods
+} from './array'
 
 class Observe {
-  constructor (value) {
+  constructor(value) {
     def(value, '__ob__', this)
     if (Array.isArray(value)) { // 数组不对索引进行操作，否则性能有问题
       value.__proto__ = arrayMethods
@@ -12,7 +17,7 @@ class Observe {
     }
   }
 
-  walk (data) {
+  walk(data) {
     let keys = Object.keys(data)
     keys.forEach(key => {
       defineReactive(data, key, data[key])
@@ -26,15 +31,15 @@ class Observe {
   }
 }
 
-function defineReactive (data, key, value) {
+function defineReactive(data, key, value) {
   observe(value)
   Object.defineProperty(data, key, {
     configurable: false, // 是否可被删除
     enumerable: false, // 是否可被遍历
-    get () {
+    get() {
       return value
     },
-    set (newValue) {
+    set(newValue) {
       if (value === newValue) {
         return
       }
@@ -44,7 +49,7 @@ function defineReactive (data, key, value) {
   })
 }
 
-export function observe (data) {
+export function observe(data) {
   if (!isObject(data)) {
     return
   }
