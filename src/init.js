@@ -1,5 +1,6 @@
 import { initState } from './state'
 import { compileToFunction } from './compiler/index.js'
+import { mountComponent } from './lifecycle'
 
 // 在原型上添加一个init方法
 export function initMixin (Vue) {
@@ -7,10 +8,8 @@ export function initMixin (Vue) {
     // 数据劫持
     const vm = this
     vm.$options = options // 传递的属性
-
     // 初始化状态
     initState(vm)
-
     // 如果传入了el就要将el渲染出来
     if (vm.$options.el) {
       vm.$mount(vm.$options.el)
@@ -30,7 +29,13 @@ export function initMixin (Vue) {
       }
       // 将template转换为render方法
       const render = compileToFunction(template)
+      console.log('这是render: ', render);
       options.render = render
+      console.dir(vm);
     }
+    // 渲染时用这个render方法
+
+    // 挂载这个组件
+    mountComponent(vm, el)
   }
 }

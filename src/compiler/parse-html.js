@@ -1,5 +1,5 @@
 const ncname = '[a-zA-Z_][\\-\\.0-9_a-zA-Z]*' // 匹配命名空间
-const qnameCapture = `((?:${ncname}\\:)?(${ncname}))`  // <aaa:bbb>
+const qnameCapture = `(?:${ncname}\\:)?(${ncname})`  // <aaa:bbb>
 const startTagOpen = new RegExp(`^<${qnameCapture}`) // 匹配捕获 开始标签名
 const endTag = new RegExp(`^<\\/${qnameCapture}>`)  // 匹配捕获 结束标签名
 
@@ -51,6 +51,7 @@ export function parseHTML(html) {
   }
   function parseStartTag() {
     let start = html.match(startTagOpen)
+    console.log(start);
     if (start) {
       const match = {
         tagName: start[1],
@@ -74,6 +75,8 @@ export function parseHTML(html) {
     }
     
   }
+
+  return root
 }
 
 function start(tagName, attrs) {
@@ -92,7 +95,7 @@ function end(tagName) {
     currentParent = tagStack[tagStack.length - 1]
     if (currentParent) {
       element.parent = currentParent
-      currentParent.chidren.push(element)
+      currentParent.children.push(element)
     }
   }
   // console.log(root);
@@ -100,7 +103,7 @@ function end(tagName) {
 function chars(text) {
   text = text.replace(/\s/g, '')
   if (text) {
-    currentParent.chidren.push({
+    currentParent.children.push({
       text,
       type: TEXT_TYPE
     })
@@ -110,7 +113,7 @@ function createASTElement(tagName, attrs) {
   return {
     tag: tagName,
     type: ELEMENT_TYPE,
-    chidren: [],
+    children: [],
     attrs,
     parent: null
   }
