@@ -1,4 +1,6 @@
 import { observe } from './observe/index'
+import { proxy } from './util/index'
+
 
 export function initState (vm) {
   const opts = vm.$options
@@ -31,6 +33,14 @@ function initData (vm) {
   data = vm._data = typeof data === 'function' ? data.call(vm) : data
   // 对象劫持
   // mvvm模式 数据变化可以驱动视图变化
+  for (const key in data) {
+    // console.log('key>>>>', key);
+    proxy(vm, '_data', key)
+    // if (Object.hasOwnProperty.call(data, key)) {
+    // }
+  }
+  console.log("我打印了", vm.userName);
+
   observe(data) // 响应式原理
 }
 function initComputed (vm) {

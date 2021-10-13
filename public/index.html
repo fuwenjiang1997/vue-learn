@@ -7,6 +7,10 @@
   <title>Document</title>
 </head>
 <body>
+  <div id="app" style="width:100px;height:100px;" class="aa bb">
+   你好 {{ userName }}
+   <p>年龄： {{ age }}</p>
+  </div>
   <script src="/dist/umd/vue.js"></script>
   <script>
     let vm = new Vue({
@@ -14,6 +18,7 @@
       data () {
         return {
           userName: '老夫子',
+          age: 12,
           arr: []
         }
       },
