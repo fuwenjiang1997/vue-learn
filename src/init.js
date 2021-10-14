@@ -21,6 +21,7 @@ export function initMixin (Vue) {
     const vm = this
     const options = this.$options
     el = document.querySelector(el)
+    vm.$el = el
     if (!options.render) {
       // 对模板进行编译
       let template = options.template

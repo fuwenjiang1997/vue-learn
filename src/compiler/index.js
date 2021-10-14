@@ -13,7 +13,7 @@ export function compileToFunction (template) {
   // _c('div', { class: ['wrapper'], id: 'div }, _c('p', undefined, _v('hello' + _s(name))), _v('!')) 
   
   const code = generate(root) // render
-  const render = new Function(`with(this){${code}}`)
+  const render = new Function(`with(this){return ${code}}`)
   return render
 }
 // // ast语法书
