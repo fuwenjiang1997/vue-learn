@@ -5,18 +5,19 @@
   "main": "index.js",
   "scripts": {
     "build:dev": "rollup -c",
-    "serve": "cross-env ENV=development rollup -c -w"
+    "serve": "cross-env ENV=development rollup -c -w",
+    "dev": "pnpm -r run dev",
+    "build": "pnpm -r run build",
+    "build:vue-core": "pnpm run -C ./packages/vue-core build"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "path-parse": ">=1.0.7",
-    "@babel/core": "^7.14.0",
-    "@babel/preset-env": "^7.14.0",
+    "@babel/core": "^7.23.2",
+    "@babel/preset-env": "^7.23.2",
     "cross-env": "^7.0.3",
-    "rollup": "^2.46.0",
-    "rollup-plugin-babel": "^4.4.0",
-    "rollup-plugin-serve": "^1.1.0"
+    "path-parse": "^1.0.7",
+    "vite": "4.4.11"
   }
 }
